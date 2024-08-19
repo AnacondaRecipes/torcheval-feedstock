@@ -43,9 +43,9 @@ about:
       * Integrates seamlessly with distributed training and tools using torch.distributed
       * Is designed with extensibility in mind: you have the freedom to easily create your own metrics and leverage our toolkit.
       * Provides tools for profiling memory and compute requirements for PyTorch based models.
-  license: BSD-3
+  license: BSD-3-Clause
   license_file: LICENSE
-  license_family: BSD-3-Clause
+  license_family: BSD
   dev_url: https://github.com/pytorch/torcheval
   doc_url: https://pytorch.org/torcheval/stable
 
