@@ -1,0 +1,54 @@
+{% set name = "torcheval" %}
+{% set version = "0.0.7" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: a498dec34137bc66c9cf1adc7353a46c604dd62255884c72dcb4e2e4fc2cd7e9
+
+build:
+  skip: True  # [py<38]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - pytorch >=1.11
+
+test:
+  imports:
+    - torcheval
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://pytorch.org/torcheval/stable
+  summary: |
+    A library for providing a simple interface to create new metrics and an easy-to-use toolkit for metric
+    computations and checkpointing.
+  description: |
+    A library with simple and straightforward tooling for model evaluations and a delightful user experience. At a high
+    level TorchEval:
+      * Contains a rich collection of high performance metric calculations out of the box. We utilize vectorization and
+        GPU acceleration where possible via PyTorch.
+      * Integrates seamlessly with distributed training and tools using torch.distributed
+      * Is designed with extensibility in mind: you have the freedom to easily create your own metrics and leverage our toolkit.
+      * Provides tools for profiling memory and compute requirements for PyTorch based models.
+  license: BSD-3
+  license_file: LICENSE
+  license_family: BSD-3-Clause
+  dev_url: https://github.com/pytorch/torcheval
+  doc_url: https://pytorch.org/torcheval/stable
+
+extra:
+  recipe-maintainers:
+    - boldorider4
