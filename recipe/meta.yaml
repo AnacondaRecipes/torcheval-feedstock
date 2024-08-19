@@ -6,18 +6,30 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a498dec34137bc66c9cf1adc7353a46c604dd62255884c72dcb4e2e4fc2cd7e9
+  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+    sha256: a498dec34137bc66c9cf1adc7353a46c604dd62255884c72dcb4e2e4fc2cd7e9
+    folder: pypi
+  - git_url: git@github.com:pytorch/torcheval.git
+    git_rev: f1bc22fc67ec2c77ee519aa4af8079f4fdaa41bb
+    folder: git
 
 build:
   skip: True  # [py<38]
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+  script:
+    - copy git\*requirements.txt pypi  # [win]
+    - cp git/*requirements.txt pypi    # [not win]
+    - cd pypi
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
+  build:
+    - git  # [not win]
   host:
     - python
     - pip
+    - wheel
+    - setuptools
   run:
     - python
     - pytorch >=1.11
@@ -44,7 +56,7 @@ about:
       * Is designed with extensibility in mind: you have the freedom to easily create your own metrics and leverage our toolkit.
       * Provides tools for profiling memory and compute requirements for PyTorch based models.
   license: BSD-3-Clause
-  license_file: LICENSE
+  license_file: git/LICENSE
   license_family: BSD
   dev_url: https://github.com/pytorch/torcheval
   doc_url: https://pytorch.org/torcheval/stable
