@@ -11,6 +11,7 @@ source:
     folder: pypi
   - git_url: git@github.com:pytorch/torcheval.git
     git_rev: f1bc22fc67ec2c77ee519aa4af8079f4fdaa41bb
+    git_depth: 1
     folder: git
 
 build:
