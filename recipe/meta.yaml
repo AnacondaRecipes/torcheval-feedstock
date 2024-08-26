@@ -32,6 +32,7 @@ requirements:
   run:
     - python
     - pytorch >=1.11
+    - typing_extensions
 
 test:
   imports:
